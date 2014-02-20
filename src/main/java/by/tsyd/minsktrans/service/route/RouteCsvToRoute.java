@@ -4,7 +4,7 @@ import by.tsyd.minsktrans.csv.route.RouteCsv;
 import by.tsyd.minsktrans.domain.Route;
 import by.tsyd.minsktrans.domain.Stop;
 import by.tsyd.minsktrans.domain.TransportType;
-import by.tsyd.minsktrans.service.stop.StopByIdIndex;
+import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
 
 import java.util.Arrays;
 import java.util.Collections;

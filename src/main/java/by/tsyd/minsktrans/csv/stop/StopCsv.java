@@ -6,7 +6,7 @@ package by.tsyd.minsktrans.csv.stop;
  */
 public class StopCsv {
 
-    private long id;
+    private String id;
     private String city;
     private String area;
     private String street;
@@ -17,11 +17,11 @@ public class StopCsv {
     private String stops;
     private String stopNum;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

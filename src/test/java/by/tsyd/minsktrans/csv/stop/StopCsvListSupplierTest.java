@@ -26,7 +26,7 @@ public class StopCsvListSupplierTest {
         assertEquals(2797, stops.size());
 
         StopCsv stopCsv = stops.get(1);
-        assertEquals(16100, stopCsv.getId());
+        assertEquals("16100", stopCsv.getId());
         assertEquals("0", stopCsv.getCity());
         assertEquals("0", stopCsv.getArea());
         assertEquals("0", stopCsv.getStreet());

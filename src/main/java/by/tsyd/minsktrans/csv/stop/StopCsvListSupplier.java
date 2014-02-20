@@ -16,7 +16,7 @@ public class StopCsvListSupplier extends GenericCsvDataSupplier<StopCsv> {
         super(resourceProvider,
                 StopCsv::new,
                 stopCsv -> ImmutableMap.<String, Consumer<String>>builder()
-                        .put("ID", id -> stopCsv.setId(Long.valueOf(id)))
+                        .put("ID", stopCsv::setId)
                         .put("City", stopCsv::setCity)
                         .put("Area", stopCsv::setArea)
                         .put("Street", stopCsv::setStreet)

@@ -2,7 +2,7 @@ package by.tsyd.minsktrans.service.route;
 
 import by.tsyd.minsktrans.csv.route.RouteCsv;
 import by.tsyd.minsktrans.domain.Route;
-import by.tsyd.minsktrans.service.stop.StopByIdIndex;
+import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
 
 import java.util.LinkedList;
 import java.util.List;

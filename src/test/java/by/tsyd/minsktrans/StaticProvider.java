@@ -6,7 +6,7 @@ import by.tsyd.minsktrans.csv.stop.StopCsvListSupplier;
 import by.tsyd.minsktrans.csv.stop.StopCsv;
 import by.tsyd.minsktrans.service.route.CsvBasedRoutesProvider;
 import by.tsyd.minsktrans.service.stop.CsvBasedStopsProvider;
-import by.tsyd.minsktrans.service.stop.StopByIdIndex;
+import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
 import org.testng.annotations.DataProvider;
 
 import java.io.InputStream;

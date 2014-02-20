@@ -2,7 +2,7 @@ package by.tsyd.minsktrans.service;
 
 import by.tsyd.minsktrans.StaticProvider;
 import by.tsyd.minsktrans.domain.Stop;
-import by.tsyd.minsktrans.service.stop.StopByIdIndex;
+import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
 import org.testng.annotations.Test;
 
 import java.util.List;

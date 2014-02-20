@@ -1,4 +1,4 @@
-package by.tsyd.minsktrans.service.stop;
+package by.tsyd.minsktrans.service.stop.index;
 
 import by.tsyd.minsktrans.domain.Stop;
 import by.tsyd.minsktrans.util.LazyValue;
