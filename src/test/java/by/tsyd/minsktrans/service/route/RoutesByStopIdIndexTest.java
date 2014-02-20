@@ -1,0 +1,27 @@
+package by.tsyd.minsktrans.service.route;
+
+import by.tsyd.minsktrans.StaticProvider;
+import by.tsyd.minsktrans.domain.Route;
+import by.tsyd.minsktrans.service.route.index.RoutesByStopIdIndex;
+import org.testng.annotations.Test;
+
+import java.util.List;
+import java.util.function.Supplier;
+
+/**
+ * @author Dmitry Tsydzik
+ * @since Date: 20.02.14.
+ */
+public class RoutesByStopIdIndexTest {
+    @Test(
+            dataProvider = StaticProvider.FILE_ROUTE_LIST_PROVIDER,
+            dataProviderClass = StaticProvider.class
+    )
+    public void test(Supplier<List<Route>> routesSupplier) throws Exception {
+        RoutesByStopIdIndex index = new RoutesByStopIdIndex(routesSupplier);
+//        14772
+//        List<Route> routes = index.getByStopId(14741L);
+        List<Route> routes = index.getByStopId(14772L);
+        routes.forEach(System.out::println);
+    }
+}
