@@ -4,13 +4,11 @@ import by.tsyd.minsktrans.csv.route.RouteCsv;
 import by.tsyd.minsktrans.domain.Route;
 import by.tsyd.minsktrans.domain.Stop;
 import by.tsyd.minsktrans.domain.TransportType;
-import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Dmitry Tsydzik
@@ -21,9 +19,9 @@ public class RouteCsvToRoute implements Function<RouteCsv, Route> {
     private String routeNumber = null;
     private TransportType transport = null;
     private String operator = null;
-    private StopByIdIndex stopByIdIndex;
+    private Function<Long, Stop> stopByIdIndex;
 
-    public RouteCsvToRoute(StopByIdIndex stopByIdIndex) {
+    public RouteCsvToRoute(Function<Long, Stop> stopByIdIndex) {
         this.stopByIdIndex = stopByIdIndex;
     }
 
@@ -60,20 +58,12 @@ public class RouteCsvToRoute implements Function<RouteCsv, Route> {
         route.setTransport(transport);
         route.setRouteName(routeCsv.getRouteName());
         route.setRouteType(routeCsv.getRouteType());
-
-        String routeStops = routeCsv.getRouteStops();
-        if (routeStops.isEmpty()) {
-            route.setStops(Collections.emptyList());
-        } else {
-
-            List<Stop> stops = Arrays.stream(routeStops.split(","))
-                    .map(Long::valueOf)
-                    .map(stopByIdIndex::getStop)
-                    .collect(Collectors.toList());
-
-            route.setStops(stops);
-        }
-
+        route.setStops(Arrays.stream(routeCsv.getRouteStops().split(",", -1))
+                .filter(stop -> !stop.isEmpty())
+                .map(Long::valueOf)
+                .map(stopByIdIndex::apply)
+                .collect(toList())
+        );
         return route;
     }
 

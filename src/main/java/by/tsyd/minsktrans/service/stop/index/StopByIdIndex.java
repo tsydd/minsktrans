@@ -14,9 +14,9 @@ import static java.util.stream.Collectors.toMap;
  * @author Dmitry Tsydzik
  * @since Date: 15.02.14.
  */
-public class StopByIdIndex {
+public class StopByIdIndex implements Function<Long, Stop> {
 
-    private final LazyValue<Map<Long,Stop>> index;
+    private final LazyValue<Map<Long, Stop>> index;
 
     public StopByIdIndex(Supplier<List<Stop>> stopsProvider) {
         index = new LazyValue<>(() -> stopsProvider.get()
@@ -24,7 +24,8 @@ public class StopByIdIndex {
                 .collect(toMap(Stop::getId, Function.<Stop>identity())));
     }
 
-    public Stop getStop(long id) {
+    @Override
+    public Stop apply(Long id) {
         return index.get().get(id);
     }
 }

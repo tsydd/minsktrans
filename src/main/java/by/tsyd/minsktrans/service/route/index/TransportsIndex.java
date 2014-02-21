@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toSet;
  * @author Dmitry Tsydzik
  * @since Date: 18.02.14.
  */
-public class TransportsIndex {
+public class TransportsIndex implements Supplier<Set<TransportType>> {
 
     private final Supplier<Set<TransportType>> index;
 
@@ -24,7 +24,8 @@ public class TransportsIndex {
                 .collect(toSet()));
     }
 
-    public Set<TransportType> getTransports() {
+    @Override
+    public Set<TransportType> get() {
         return index.get();
     }
 }

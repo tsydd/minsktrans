@@ -6,6 +6,7 @@ import by.tsyd.minsktrans.service.route.index.RoutesByStopIdIndex;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -18,10 +19,10 @@ public class RoutesByStopIdIndexTest {
             dataProviderClass = StaticProvider.class
     )
     public void test(Supplier<List<Route>> routesSupplier) throws Exception {
-        RoutesByStopIdIndex index = new RoutesByStopIdIndex(routesSupplier);
+        Function<Long, List<Route>> index = new RoutesByStopIdIndex(routesSupplier);
 //        14772
-//        List<Route> routes = index.getByStopId(14741L);
-        List<Route> routes = index.getByStopId(14772L);
+//        List<Route> routes = index.apply(14741L);
+        List<Route> routes = index.apply(14772L);
         routes.forEach(System.out::println);
     }
 }

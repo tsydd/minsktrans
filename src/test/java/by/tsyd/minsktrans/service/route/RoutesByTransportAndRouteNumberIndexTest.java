@@ -8,6 +8,7 @@ import by.tsyd.minsktrans.service.route.index.RoutesByTransportAndRouteNumberInd
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 /**
@@ -21,8 +22,8 @@ public class RoutesByTransportAndRouteNumberIndexTest {
             dataProviderClass = StaticProvider.class
     )
     public void test(Supplier<List<Route>> routesSupplier) throws Exception {
-        RoutesByTransportAndRouteNumberIndex index = new RoutesByTransportAndRouteNumberIndex(routesSupplier);
-        List<Route> trolleybus33 = index.getByTransportAndRouteNumber(TransportType.TROLLEYBUS, "33");
+        BiFunction<TransportType, String, List<Route>> index = new RoutesByTransportAndRouteNumberIndex(routesSupplier);
+        List<Route> trolleybus33 = index.apply(TransportType.TROLLEYBUS, "33");
 
         trolleybus33.stream()
                 .map(Route::getRouteType)

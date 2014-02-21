@@ -5,6 +5,7 @@ import by.tsyd.minsktrans.util.LazyValue;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.*;
@@ -13,7 +14,7 @@ import static java.util.stream.Collectors.*;
  * @author Dmitry Tsydzik
  * @since Date: 19.02.14.
  */
-public class RoutesByStopIdIndex {
+public class RoutesByStopIdIndex implements Function<Long, List<Route>> {
 
     private static class StopIdRoute {
         private Long stopId;
@@ -39,11 +40,14 @@ public class RoutesByStopIdIndex {
         index = new LazyValue<>(() -> routeListSupplier.get().stream()
                 .flatMap(route -> route.getStops().stream()
                         .map(stop -> new StopIdRoute(stop.getId(), route)))
-                .collect(groupingBy(StopIdRoute::getStopId, mapping(StopIdRoute::getRoute, toList())))
+                .collect(groupingBy(StopIdRoute::getStopId,
+                        mapping(StopIdRoute::getRoute,
+                                toList())))
         );
     }
 
-    public List<Route> getByStopId(Long stopId) {
+    @Override
+    public List<Route> apply(Long stopId) {
         return index.get().get(stopId);
     }
 }

@@ -6,6 +6,7 @@ import by.tsyd.minsktrans.util.LazyValue;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -14,7 +15,7 @@ import static java.util.stream.Collectors.groupingBy;
  * @author Dmitry Tsydzik
  * @since Date: 18.02.14.
  */
-public class RoutesByTransportIndex {
+public class RoutesByTransportIndex implements Function<TransportType, List<Route>> {
     private final Supplier<Map<TransportType, List<Route>>> index;
 
     public RoutesByTransportIndex(Supplier<List<Route>> dataProvider) {
@@ -23,7 +24,8 @@ public class RoutesByTransportIndex {
                 .collect(groupingBy(Route::getTransport)));
     }
 
-    public List<Route> getRoutesByTransport(TransportType transport) {
+    @Override
+    public List<Route> apply(TransportType transport) {
         return index.get().get(transport);
     }
 }
