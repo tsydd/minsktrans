@@ -61,7 +61,7 @@ public class RouteCsvToRoute implements Function<RouteCsv, Route> {
         route.setStops(Arrays.stream(routeCsv.getRouteStops().split(",", -1))
                 .filter(stop -> !stop.isEmpty())
                 .map(Long::valueOf)
-                .map(stopByIdIndex::apply)
+                .map(stopByIdIndex)
                 .collect(toList())
         );
         return route;

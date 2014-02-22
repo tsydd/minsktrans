@@ -1,14 +1,16 @@
 package by.tsyd.minsktrans.service.route;
 
-import by.tsyd.minsktrans.StaticProvider;
+import by.tsyd.minsktrans.csv.route.RouteCsv;
 import by.tsyd.minsktrans.domain.Route;
+import by.tsyd.minsktrans.domain.Stop;
 import by.tsyd.minsktrans.domain.TransportType;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static java.util.stream.Collectors.toSet;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -16,34 +18,59 @@ import static org.testng.Assert.assertEquals;
  * @since Date: 18.02.14.
  */
 public class CsvBasedRouteListSupplierTest {
-    @Test(
-            dataProvider = StaticProvider.FILE_ROUTE_LIST_SUPPLIER,
-            dataProviderClass = StaticProvider.class
-    )
-    public void test(Supplier<List<Route>> routeListSupplier) throws Exception {
+
+    @Test
+    public void testConversion() throws Exception {
+        RouteCsv routeCsv = new RouteCsv();
+        routeCsv.setRouteNumber("route_number");
+        routeCsv.setTransport("bus");
+        routeCsv.setOperator("operator");
+        routeCsv.setRouteName("name");
+        routeCsv.setRouteType("type");
+        routeCsv.setRouteStops("1");
+
+        Stop stop = new Stop();
+        stop.setId(1L);
+        stop.setStops(Collections.<Stop>emptyList());
+
+        Supplier<List<Route>> routeListSupplier = new CsvBasedRouteListSupplier(
+                () -> Arrays.asList(routeCsv),
+                (stopId) -> stop
+        );
         List<Route> routes = routeListSupplier.get();
-        assertEquals(879, routes.size());
-
         Route route = routes.get(0);
-        assertEquals("д", route.getRouteNumber());
+
+        assertEquals(routeCsv.getRouteNumber(), route.getRouteNumber());
         assertEquals(TransportType.BUS, route.getTransport());
-        assertEquals("7 АП", route.getOperator());
-        assertEquals("Малышок (Уручье-2)", route.getRouteName());
-        assertEquals("A>B", route.getRouteType());
+        assertEquals(routeCsv.getOperator(), route.getOperator());
+        assertEquals(routeCsv.getRouteName(), route.getRouteName());
+        assertEquals(routeCsv.getRouteType(), route.getRouteType());
+        assertEquals(Arrays.asList(stop), route.getStops());
+    }
 
-        System.out.println(route.getStops());
+    @Test
+    public void testPropagation() throws Exception {
+        RouteCsv routeCsv1 = new RouteCsv();
+        routeCsv1.setRouteNumber("route_number");
+        routeCsv1.setTransport("bus");
+        routeCsv1.setOperator("operator");
+        routeCsv1.setRouteStops("");
 
-        System.out.println(routes.stream()
-                .map(Route::getTransport)
-                .collect(toSet()));
+        RouteCsv routeCsv2 = new RouteCsv();
+        routeCsv2.setRouteNumber("");
+        routeCsv2.setTransport("");
+        routeCsv2.setOperator("");
+        routeCsv2.setRouteStops("");
 
-        System.out.println(routes.stream()
-                .map(Route::getOperator)
-                .collect(toSet()));
+        Supplier<List<Route>> routeListSupplier = new CsvBasedRouteListSupplier(
+                () -> Arrays.asList(routeCsv1, routeCsv2),
+                (stopId) -> null
+        );
+        List<Route> routes2 = routeListSupplier.get();
+        Route route = routes2.get(1);
 
-        System.out.println(routes.stream()
-                .map(Route::getRouteType)
-                .collect(toSet()));
-
+        assertEquals(routeCsv1.getRouteNumber(), route.getRouteNumber());
+        assertEquals(TransportType.BUS, route.getTransport());
+        assertEquals(routeCsv1.getOperator(), route.getOperator());
     }
 }

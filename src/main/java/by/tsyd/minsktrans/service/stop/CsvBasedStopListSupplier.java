@@ -28,10 +28,8 @@ public class CsvBasedStopListSupplier implements Supplier<List<Stop>> {
     public List<Stop> get() {
         List<StopCsv> stopCsvs = csvStopsProvider.get();
 
-        Function<StopCsv, Stop> stopCsvToStop = new StopCsvToStop();
-
         List<Stop> stopList = stopCsvs.stream().sequential()
-                .map(stopCsvToStop)
+                .map(new StopCsvToStop())
                 .collect(toList());
 
         Map<Long, Stop> stopMap = stopList.stream()
