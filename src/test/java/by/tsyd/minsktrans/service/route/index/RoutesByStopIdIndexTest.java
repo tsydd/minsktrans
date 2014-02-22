@@ -1,8 +1,7 @@
-package by.tsyd.minsktrans.service.route;
+package by.tsyd.minsktrans.service.route.index;
 
 import by.tsyd.minsktrans.StaticProvider;
 import by.tsyd.minsktrans.domain.Route;
-import by.tsyd.minsktrans.service.route.index.RoutesByStopIdIndex;
 import org.testng.annotations.Test;
 
 import java.util.List;

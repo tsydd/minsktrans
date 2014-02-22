@@ -39,6 +39,7 @@ public class CsvBasedStopsProvider implements Supplier<List<Stop>> {
 
         stopCsvs.forEach(stopCsv -> stopMap.get(Long.valueOf(stopCsv.getId()))
                         .setStops(Arrays.stream(stopCsv.getStops().split(",", -1))
+                                        .filter(stopId -> !stopId.isEmpty())
                                         .map(Long::valueOf)
                                         .map(stopMap::get)
                                         .collect(toList())

@@ -150,11 +150,4 @@ public class RouteCsv {
     public void setDateStart(String dateStart) {
         this.dateStart = dateStart;
     }
-
-    @Override
-    public String toString() {
-        return "id=" + routeId +
-                " , transport=" + transport +
-                " , routeNum=" + routeNumber;
-    }
 }

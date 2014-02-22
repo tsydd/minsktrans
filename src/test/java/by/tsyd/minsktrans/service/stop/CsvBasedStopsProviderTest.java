@@ -1,4 +1,4 @@
-package by.tsyd.minsktrans.service;
+package by.tsyd.minsktrans.service.stop;
 
 import by.tsyd.minsktrans.StaticProvider;
 import by.tsyd.minsktrans.domain.Stop;
