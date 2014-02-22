@@ -1,27 +1,31 @@
 package by.tsyd.minsktrans.service.route.index;
 
-import by.tsyd.minsktrans.StaticProvider;
 import by.tsyd.minsktrans.domain.Route;
+import by.tsyd.minsktrans.domain.Stop;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 /**
  * @author Dmitry Tsydzik
  * @since Date: 20.02.14.
  */
 public class RoutesByStopIdIndexTest {
-    @Test(
-            dataProvider = StaticProvider.FILE_ROUTE_LIST_SUPPLIER,
-            dataProviderClass = StaticProvider.class
-    )
-    public void test(Supplier<List<Route>> routeListSupplier) throws Exception {
-        Function<Long, List<Route>> index = new RoutesByStopIdIndex(routeListSupplier);
-//        14772
-//        List<Route> routes = index.apply(14741L);
-        List<Route> routes = index.apply(14772L);
-        routes.forEach(System.out::println);
+    @Test
+    public void test() throws Exception {
+        Stop stop = new Stop();
+        stop.setId(1L);
+
+        Route route = new Route();
+        route.setStops(Arrays.asList(stop));
+
+        Function<Long, List<Route>> index = new RoutesByStopIdIndex(() -> Arrays.asList(route));
+        assertNull(index.apply(0L));
+        assertEquals(Arrays.asList(route), index.apply(stop.getId()));
     }
 }
