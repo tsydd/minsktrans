@@ -1,6 +1,7 @@
 package by.tsyd.minsktrans.domain;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class Stop {
     private String name;
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private List<Stop> stops;
+    private List<Stop> stops = Collections.emptyList();
 
     @Override
     public String toString() {
