@@ -13,14 +13,14 @@ import java.util.function.Supplier;
  * @author Dmitry Tsydzik
  * @since Date: 15.02.14.
  */
-public class CsvBasedStopsProviderTest {
+public class CsvBasedStopListSupplierTest {
 
     @Test(
-            dataProvider = StaticProvider.FILE_STOP_PROVIDER,
+            dataProvider = StaticProvider.FILE_STOP_SUPPLIER,
             dataProviderClass = StaticProvider.class
     )
-    public void test(Supplier<List<Stop>> stopDataProvider) throws Exception {
-        Function<Long, Stop> stopByIdIndex = new StopByIdIndex(stopDataProvider);
+    public void test(Supplier<List<Stop>> stopListSupplier) throws Exception {
+        Function<Long, Stop> stopByIdIndex = new StopByIdIndex(stopListSupplier);
 
         Stop stop = stopByIdIndex.apply(14741L);
         System.out.println(stop);

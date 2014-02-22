@@ -16,11 +16,11 @@ import static java.util.stream.Collectors.toMap;
  * @author Dmitry Tsydzik
  * @since Date: 15.02.14.
  */
-public class CsvBasedStopsProvider implements Supplier<List<Stop>> {
+public class CsvBasedStopListSupplier implements Supplier<List<Stop>> {
 
     private final Supplier<List<StopCsv>> csvStopsProvider;
 
-    public CsvBasedStopsProvider(Supplier<List<StopCsv>> csvStopsProvider) {
+    public CsvBasedStopListSupplier(Supplier<List<StopCsv>> csvStopsProvider) {
         this.csvStopsProvider = csvStopsProvider;
     }
 

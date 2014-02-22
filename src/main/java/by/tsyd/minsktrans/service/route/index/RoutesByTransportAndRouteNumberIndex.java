@@ -18,8 +18,8 @@ public class RoutesByTransportAndRouteNumberIndex implements BiFunction<Transpor
 
     private final Supplier<Map<TransportType, Map<String, List<Route>>>> index;
 
-    public RoutesByTransportAndRouteNumberIndex(Supplier<List<Route>> routesSupplier) {
-        index = new LazyValue<>(() -> routesSupplier.get().stream()
+    public RoutesByTransportAndRouteNumberIndex(Supplier<List<Route>> routeListSupplier) {
+        index = new LazyValue<>(() -> routeListSupplier.get().stream()
                 .collect(Collectors.groupingBy(Route::getTransport, Collectors.groupingBy(Route::getRouteNumber))));
     }
 

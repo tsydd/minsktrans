@@ -14,20 +14,19 @@ import static java.util.stream.Collectors.toList;
  * @author Dmitry Tsydzik
  * @since Date: 16.02.14.
  */
-public class CsvBasedRoutesProvider implements Supplier<List<Route>> {
+public class CsvBasedRouteListSupplier implements Supplier<List<Route>> {
 
-    private final Supplier<List<RouteCsv>> csvRoutesProvider;
+    private final Supplier<List<RouteCsv>> routeCsvListSupplier;
     private Function<Long, Stop> stopByIdIndex;
 
-    public CsvBasedRoutesProvider(Supplier<List<RouteCsv>> csvRoutesProvider, Function<Long, Stop> stopByIdIndex) {
-        this.csvRoutesProvider = csvRoutesProvider;
+    public CsvBasedRouteListSupplier(Supplier<List<RouteCsv>> routeCsvListSupplier, Function<Long, Stop> stopByIdIndex) {
+        this.routeCsvListSupplier = routeCsvListSupplier;
         this.stopByIdIndex = stopByIdIndex;
     }
 
     @Override
     public List<Route> get() {
-        return csvRoutesProvider.get()
-                .stream()
+        return routeCsvListSupplier.get().stream()
                 .sequential()
                 .map(new RouteCsvToRoute(stopByIdIndex))
                 .collect(toList());

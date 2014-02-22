@@ -17,11 +17,11 @@ import java.util.function.Supplier;
 public class RoutesByTransportAndRouteNumberIndexTest {
 
     @Test(
-            dataProvider = StaticProvider.FILE_ROUTE_LIST_PROVIDER,
+            dataProvider = StaticProvider.FILE_ROUTE_LIST_SUPPLIER,
             dataProviderClass = StaticProvider.class
     )
-    public void test(Supplier<List<Route>> routesSupplier) throws Exception {
-        BiFunction<TransportType, String, List<Route>> index = new RoutesByTransportAndRouteNumberIndex(routesSupplier);
+    public void test(Supplier<List<Route>> routeListSupplier) throws Exception {
+        BiFunction<TransportType, String, List<Route>> index = new RoutesByTransportAndRouteNumberIndex(routeListSupplier);
         List<Route> trolleybus33 = index.apply(TransportType.TROLLEYBUS, "33");
 
         trolleybus33.stream()

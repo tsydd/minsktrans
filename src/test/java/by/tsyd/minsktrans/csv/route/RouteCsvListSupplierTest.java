@@ -15,11 +15,11 @@ import static org.testng.Assert.assertEquals;
 public class RouteCsvListSupplierTest {
 
     @Test(
-            dataProvider = StaticProvider.FILE_ROUTE_CSV_LIST_PROVIDER,
+            dataProvider = StaticProvider.FILE_ROUTE_CSV_LIST_SUPPLIER,
             dataProviderClass = StaticProvider.class
     )
-    public void test(Supplier<List<RouteCsv>> csvRouteProvider) throws Exception {
-        List<RouteCsv> routes = csvRouteProvider.get();
+    public void test(Supplier<List<RouteCsv>> routeCsvListSupplier) throws Exception {
+        List<RouteCsv> routes = routeCsvListSupplier.get();
         assertEquals(879, routes.size());
 
         RouteCsv routeCsv = routes.get(0);

@@ -1,11 +1,11 @@
 package by.tsyd.minsktrans.csv.stop;
 
 import by.tsyd.minsktrans.MinskTransHttpConstants;
-import by.tsyd.minsktrans.ResourceProvider;
 import by.tsyd.minsktrans.StaticProvider;
-import by.tsyd.minsktrans.csv.MinskTransHttpCsvProvider;
+import by.tsyd.minsktrans.csv.HttpCsvInputStreamSupplier;
 import org.testng.annotations.Test;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -18,7 +18,7 @@ import static org.testng.Assert.assertFalse;
  */
 public class StopCsvListSupplierTest {
     @Test(
-            dataProvider = StaticProvider.FILE_STOP_CSV_PROVIDER,
+            dataProvider = StaticProvider.FILE_STOP_CSV_SUPPLIER,
             dataProviderClass = StaticProvider.class
     )
     public void testFileOpenCsv(Supplier<List<StopCsv>> csvStopProvider) throws Exception {
@@ -40,10 +40,10 @@ public class StopCsvListSupplierTest {
 
     @Test
     public void testHttpOpenCsv() throws Exception {
-        ResourceProvider resourceProvider = new MinskTransHttpCsvProvider(MinskTransHttpConstants.DEFAULT_STOPS_URL);
-        Supplier<List<StopCsv>> csvStopProvider = new StopCsvListSupplier(resourceProvider);
+        Supplier<InputStream> inputStreamSupplier = new HttpCsvInputStreamSupplier(MinskTransHttpConstants.DEFAULT_STOPS_URL);
+        Supplier<List<StopCsv>> stopCsvListSupplier = new StopCsvListSupplier(inputStreamSupplier);
 
-        List<StopCsv> stops = csvStopProvider.get();
+        List<StopCsv> stops = stopCsvListSupplier.get();
         assertFalse(stops.isEmpty());
     }
 

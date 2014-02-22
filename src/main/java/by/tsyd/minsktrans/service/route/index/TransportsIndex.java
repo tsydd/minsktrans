@@ -18,8 +18,8 @@ public class TransportsIndex implements Supplier<Set<TransportType>> {
 
     private final Supplier<Set<TransportType>> index;
 
-    public TransportsIndex(Supplier<List<Route>> routes) {
-        index = new LazyValue<>(() -> routes.get().stream()
+    public TransportsIndex(Supplier<List<Route>> routeListSupplier) {
+        index = new LazyValue<>(() -> routeListSupplier.get().stream()
                 .map(Route::getTransport)
                 .collect(toSet()));
     }

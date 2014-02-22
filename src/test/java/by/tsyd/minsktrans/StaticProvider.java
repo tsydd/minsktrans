@@ -4,8 +4,8 @@ import by.tsyd.minsktrans.csv.route.RouteCsvListSupplier;
 import by.tsyd.minsktrans.csv.route.RouteCsv;
 import by.tsyd.minsktrans.csv.stop.StopCsvListSupplier;
 import by.tsyd.minsktrans.csv.stop.StopCsv;
-import by.tsyd.minsktrans.service.route.CsvBasedRoutesProvider;
-import by.tsyd.minsktrans.service.stop.CsvBasedStopsProvider;
+import by.tsyd.minsktrans.service.route.CsvBasedRouteListSupplier;
+import by.tsyd.minsktrans.service.stop.CsvBasedStopListSupplier;
 import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
 import org.testng.annotations.DataProvider;
 
@@ -19,41 +19,39 @@ import java.util.function.Supplier;
  */
 public class StaticProvider {
 
-    public static final String FILE_STOP_CSV_PROVIDER = "fileStopCsvList";
-    public static final String FILE_STOP_PROVIDER = "fileStopList";
-    public static final String FILE_ROUTE_CSV_LIST_PROVIDER = "fileRouteCsvList";
-    public static final String FILE_ROUTE_LIST_PROVIDER = "fileRouteList";
+    public static final String FILE_STOP_CSV_SUPPLIER = "fileStopCsvList";
+    public static final String FILE_STOP_SUPPLIER = "fileStopList";
+    public static final String FILE_ROUTE_CSV_LIST_SUPPLIER = "fileRouteCsvList";
+    public static final String FILE_ROUTE_LIST_SUPPLIER = "fileRouteList";
 
-    @DataProvider(name = FILE_STOP_CSV_PROVIDER)
+    @DataProvider(name = FILE_STOP_CSV_SUPPLIER)
     public static Object[][] fileBasedStopCsvListSupplier() {
         return new Object[][]{{getStopCsvListSupplier()}};
     }
 
-    @DataProvider(name = StaticProvider.FILE_STOP_PROVIDER)
+    @DataProvider(name = StaticProvider.FILE_STOP_SUPPLIER)
     public static Object[][] fileBasedStopListSupplier() {
-        return new Object[][]{{new CsvBasedStopsProvider(getStopCsvListSupplier())}};
+        return new Object[][]{{new CsvBasedStopListSupplier(getStopCsvListSupplier())}};
     }
 
     private static Supplier<List<StopCsv>> getStopCsvListSupplier() {
-        InputStream inputStream = StaticProvider.class.getResourceAsStream("/stops.txt");
-        ResourceProvider resourceProvider = new InputStreamBasedResourceProvider(inputStream);
+        Supplier<InputStream> resourceProvider = () -> StaticProvider.class.getResourceAsStream("/stops.txt");
         return new StopCsvListSupplier(resourceProvider);
     }
 
-    @DataProvider(name = FILE_ROUTE_CSV_LIST_PROVIDER)
+    @DataProvider(name = FILE_ROUTE_CSV_LIST_SUPPLIER)
     public static Object[][] fileBasedRouteCsvListSupplier() {
         return new Object[][]{{getRouteCsvListSupplier()}};
     }
 
-    @DataProvider(name = FILE_ROUTE_LIST_PROVIDER)
+    @DataProvider(name = FILE_ROUTE_LIST_SUPPLIER)
     public static Object[][] fileBasedRouteListSupplier() {
-        StopByIdIndex stopByIdIndex = new StopByIdIndex(new CsvBasedStopsProvider(getStopCsvListSupplier()));
-        return new Object[][]{{new CsvBasedRoutesProvider(getRouteCsvListSupplier(), stopByIdIndex)}};
+        StopByIdIndex stopByIdIndex = new StopByIdIndex(new CsvBasedStopListSupplier(getStopCsvListSupplier()));
+        return new Object[][]{{new CsvBasedRouteListSupplier(getRouteCsvListSupplier(), stopByIdIndex)}};
     }
 
     private static Supplier<List<RouteCsv>> getRouteCsvListSupplier() {
-        InputStream inputStream = StaticProvider.class.getResourceAsStream("/routes.txt");
-        ResourceProvider resourceProvider = new InputStreamBasedResourceProvider(inputStream);
+        Supplier<InputStream> resourceProvider = () -> StaticProvider.class.getResourceAsStream("/routes.txt");
         return new RouteCsvListSupplier(resourceProvider);
     }
 }

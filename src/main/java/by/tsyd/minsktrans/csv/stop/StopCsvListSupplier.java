@@ -1,10 +1,11 @@
 package by.tsyd.minsktrans.csv.stop;
 
-import by.tsyd.minsktrans.ResourceProvider;
 import by.tsyd.minsktrans.csv.GenericCsvDataSupplier;
 import com.google.common.collect.ImmutableMap;
 
+import java.io.InputStream;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * @author Dmitry Tsydzik
@@ -12,8 +13,8 @@ import java.util.function.Consumer;
  */
 public class StopCsvListSupplier extends GenericCsvDataSupplier<StopCsv> {
 
-    public StopCsvListSupplier(ResourceProvider resourceProvider) {
-        super(resourceProvider,
+    public StopCsvListSupplier(Supplier<InputStream> inputStreamSupplier) {
+        super(inputStreamSupplier,
                 StopCsv::new,
                 stopCsv -> ImmutableMap.<String, Consumer<String>>builder()
                         .put("ID", stopCsv::setId)

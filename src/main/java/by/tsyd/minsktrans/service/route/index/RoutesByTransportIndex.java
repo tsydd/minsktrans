@@ -18,9 +18,8 @@ import static java.util.stream.Collectors.groupingBy;
 public class RoutesByTransportIndex implements Function<TransportType, List<Route>> {
     private final Supplier<Map<TransportType, List<Route>>> index;
 
-    public RoutesByTransportIndex(Supplier<List<Route>> dataProvider) {
-        index = new LazyValue<>(() -> dataProvider.get()
-                .stream()
+    public RoutesByTransportIndex(Supplier<List<Route>> routeListSupplier) {
+        index = new LazyValue<>(() -> routeListSupplier.get().stream()
                 .collect(groupingBy(Route::getTransport)));
     }
 

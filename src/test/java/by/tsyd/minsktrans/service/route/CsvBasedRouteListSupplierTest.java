@@ -15,13 +15,13 @@ import static org.testng.Assert.assertEquals;
  * @author Dmitry Tsydzik
  * @since Date: 18.02.14.
  */
-public class CsvBasedRoutesProviderTest {
+public class CsvBasedRouteListSupplierTest {
     @Test(
-            dataProvider = StaticProvider.FILE_ROUTE_LIST_PROVIDER,
+            dataProvider = StaticProvider.FILE_ROUTE_LIST_SUPPLIER,
             dataProviderClass = StaticProvider.class
     )
-    public void test(Supplier<List<Route>> routeProvider) throws Exception {
-        List<Route> routes = routeProvider.get();
+    public void test(Supplier<List<Route>> routeListSupplier) throws Exception {
+        List<Route> routes = routeListSupplier.get();
         assertEquals(879, routes.size());
 
         Route route = routes.get(0);

@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 public class TransportToRoutesIndex {
     private final Supplier<Map<TransportType, List<Route>>> index;
 
-    public TransportToRoutesIndex(Supplier<List<Route>> routes) {
-        index = new LazyValue<>(() -> routes.get().stream()
+    public TransportToRoutesIndex(Supplier<List<Route>> routeListSupplier) {
+        index = new LazyValue<>(() -> routeListSupplier.get().stream()
                 .collect(Collectors.groupingBy(Route::getTransport)));
     }
 

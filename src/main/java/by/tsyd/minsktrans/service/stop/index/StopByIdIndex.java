@@ -18,9 +18,8 @@ public class StopByIdIndex implements Function<Long, Stop> {
 
     private final LazyValue<Map<Long, Stop>> index;
 
-    public StopByIdIndex(Supplier<List<Stop>> stopsProvider) {
-        index = new LazyValue<>(() -> stopsProvider.get()
-                .stream()
+    public StopByIdIndex(Supplier<List<Stop>> stopListSupplier) {
+        index = new LazyValue<>(() -> stopListSupplier.get().stream()
                 .collect(toMap(Stop::getId, Function.<Stop>identity())));
     }
 

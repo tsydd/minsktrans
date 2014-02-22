@@ -14,11 +14,11 @@ import java.util.function.Supplier;
  */
 public class RoutesByStopIdIndexTest {
     @Test(
-            dataProvider = StaticProvider.FILE_ROUTE_LIST_PROVIDER,
+            dataProvider = StaticProvider.FILE_ROUTE_LIST_SUPPLIER,
             dataProviderClass = StaticProvider.class
     )
-    public void test(Supplier<List<Route>> routesSupplier) throws Exception {
-        Function<Long, List<Route>> index = new RoutesByStopIdIndex(routesSupplier);
+    public void test(Supplier<List<Route>> routeListSupplier) throws Exception {
+        Function<Long, List<Route>> index = new RoutesByStopIdIndex(routeListSupplier);
 //        14772
 //        List<Route> routes = index.apply(14741L);
         List<Route> routes = index.apply(14772L);

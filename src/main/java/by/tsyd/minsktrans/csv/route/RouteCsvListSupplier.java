@@ -1,10 +1,11 @@
 package by.tsyd.minsktrans.csv.route;
 
-import by.tsyd.minsktrans.ResourceProvider;
 import by.tsyd.minsktrans.csv.GenericCsvDataSupplier;
 import com.google.common.collect.ImmutableMap;
 
+import java.io.InputStream;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * @author Dmitry Tsydzik
@@ -12,8 +13,8 @@ import java.util.function.Consumer;
  */
 public class RouteCsvListSupplier extends GenericCsvDataSupplier<RouteCsv> {
 
-    public RouteCsvListSupplier(ResourceProvider resourceProvider) {
-        super(resourceProvider,
+    public RouteCsvListSupplier(Supplier<InputStream> inputStreamSupplier) {
+        super(inputStreamSupplier,
                 RouteCsv::new,
                 routeCsv -> ImmutableMap.<String, Consumer<String>>builder()
                         .put("RouteNum", routeCsv::setRouteNumber)

@@ -16,9 +16,9 @@ import static java.util.stream.Collectors.toList;
  */
 public class RouteCsvToRoute implements Function<RouteCsv, Route> {
 
-    private String routeNumber = null;
-    private TransportType transport = null;
-    private String operator = null;
+    private String routeNumber;
+    private TransportType transport;
+    private String operator;
     private Function<Long, Stop> stopByIdIndex;
 
     public RouteCsvToRoute(Function<Long, Stop> stopByIdIndex) {
