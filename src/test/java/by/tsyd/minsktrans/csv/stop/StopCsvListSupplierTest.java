@@ -17,11 +17,9 @@ import static org.testng.Assert.assertFalse;
  * @since Date: 20.02.14.
  */
 public class StopCsvListSupplierTest {
-    @Test(
-            dataProvider = StaticProvider.FILE_STOP_CSV_SUPPLIER,
-            dataProviderClass = StaticProvider.class
-    )
-    public void testFileOpenCsv(Supplier<List<StopCsv>> csvStopProvider) throws Exception {
+    @Test
+    public void testFileOpenCsv() throws Exception {
+        Supplier<List<StopCsv>> csvStopProvider  = StaticProvider.getStopCsvListFromFileSupplier();
         List<StopCsv> stops = csvStopProvider.get();
         assertEquals(2797, stops.size());
 

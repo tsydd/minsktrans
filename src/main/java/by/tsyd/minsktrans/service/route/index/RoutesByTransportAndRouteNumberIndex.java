@@ -25,6 +25,7 @@ public class RoutesByTransportAndRouteNumberIndex implements BiFunction<Transpor
 
     @Override
     public List<Route> apply(TransportType transport, String routeNumber) {
-        return index.get().get(transport).get(routeNumber);
+        Map<String, List<Route>> routeNumberRoutesIndex = index.get().get(transport);
+        return routeNumberRoutesIndex == null ? null : routeNumberRoutesIndex.get(routeNumber);
     }
 }

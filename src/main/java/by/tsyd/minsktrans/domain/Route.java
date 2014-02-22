@@ -1,6 +1,7 @@
 package by.tsyd.minsktrans.domain;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author Dmitry Tsydzik
@@ -12,7 +13,7 @@ public class Route {
     private String operator;
     private String routeType;
     private String routeName;
-    private Collection<Stop> stops;
+    private Collection<Stop> stops = Collections.emptyList();
 
     @Override
     public String toString() {

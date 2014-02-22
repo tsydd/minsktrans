@@ -7,7 +7,6 @@ import by.tsyd.minsktrans.domain.TransportType;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -31,7 +30,6 @@ public class CsvBasedRouteListSupplierTest {
 
         Stop stop = new Stop();
         stop.setId(1L);
-        stop.setStops(Collections.<Stop>emptyList());
 
         Supplier<List<Route>> routeListSupplier = new CsvBasedRouteListSupplier(
                 () -> Arrays.asList(routeCsv),
