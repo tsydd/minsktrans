@@ -21,6 +21,7 @@ public class CsvBasedRouteListSupplierTest {
     @Test
     public void testConversion() throws Exception {
         RouteCsv routeCsv = new RouteCsv();
+        routeCsv.setRouteId("1");
         routeCsv.setRouteNumber("route_number");
         routeCsv.setTransport("bus");
         routeCsv.setOperator("operator");
@@ -38,6 +39,7 @@ public class CsvBasedRouteListSupplierTest {
         List<Route> routes = routeListSupplier.get();
         Route route = routes.get(0);
 
+        assertEquals(1L, route.getId().longValue());
         assertEquals(routeCsv.getRouteNumber(), route.getRouteNumber());
         assertEquals(TransportType.BUS, route.getTransport());
         assertEquals(routeCsv.getOperator(), route.getOperator());
@@ -49,12 +51,14 @@ public class CsvBasedRouteListSupplierTest {
     @Test
     public void testPropagation() throws Exception {
         RouteCsv routeCsv1 = new RouteCsv();
+        routeCsv1.setRouteId("1");
         routeCsv1.setRouteNumber("route_number");
         routeCsv1.setTransport("bus");
         routeCsv1.setOperator("operator");
         routeCsv1.setRouteStops("");
 
         RouteCsv routeCsv2 = new RouteCsv();
+        routeCsv2.setRouteId("2");
         routeCsv2.setRouteNumber("");
         routeCsv2.setTransport("");
         routeCsv2.setOperator("");

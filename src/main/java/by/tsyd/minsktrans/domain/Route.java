@@ -8,6 +8,7 @@ import java.util.Collections;
  * @since Date: 15.02.14.
  */
 public class Route {
+    private Long id;
     private String routeNumber;
     private TransportType transport;
     private String operator;
@@ -23,6 +24,14 @@ public class Route {
                 ", routeType='" + routeType + '\'' +
                 ", routeName='" + routeName + '\'' +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRouteNumber() {

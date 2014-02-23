@@ -53,6 +53,7 @@ public class RouteCsvToRoute implements Function<RouteCsv, Route> {
         }
 
         Route route = new Route();
+        route.setId(Long.valueOf(routeCsv.getRouteId()));
         route.setRouteNumber(routeNumber);
         route.setOperator(operator);
         route.setTransport(transport);
