@@ -20,7 +20,7 @@ public class RouteCsvListSupplierTest {
     )
     public void test(Supplier<List<RouteCsv>> routeCsvListSupplier) throws Exception {
         List<RouteCsv> routes = routeCsvListSupplier.get();
-        assertEquals(879, routes.size());
+        assertEquals(881, routes.size());
 
         RouteCsv routeCsv = routes.get(0);
         assertEquals("д", routeCsv.getRouteNumber());

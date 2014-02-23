@@ -21,7 +21,7 @@ public class StopCsvListSupplierTest {
     public void testFileOpenCsv() throws Exception {
         Supplier<List<StopCsv>> csvStopProvider  = StaticProvider.getStopCsvListFromFileSupplier();
         List<StopCsv> stops = csvStopProvider.get();
-        assertEquals(2797, stops.size());
+        assertEquals(2802, stops.size());
 
         StopCsv stopCsv = stops.get(1);
         assertEquals("16100", stopCsv.getId());

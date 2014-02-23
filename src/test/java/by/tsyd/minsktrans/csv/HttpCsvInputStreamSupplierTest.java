@@ -16,7 +16,7 @@ public class HttpCsvInputStreamSupplierTest {
 
     @Test
     public void test() throws Exception {
-        Supplier<InputStream> inputStreamSupplier = new HttpCsvInputStreamSupplier(MinskTransHttpConstants.DEFAULT_ROUTES_URL);
+        Supplier<InputStream> inputStreamSupplier = new HttpCsvInputStreamSupplier(MinskTransHttpConstants.DEFAULT_TIMES_URL);
         try (InputStream is = inputStreamSupplier.get();
              InputStreamReader isr = new InputStreamReader(is);
              BufferedReader reader = new BufferedReader(isr)) {
