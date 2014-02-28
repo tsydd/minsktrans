@@ -8,13 +8,15 @@ import com.google.common.collect.AbstractIterator;
 */
 class DataUnpackingIterator extends AbstractIterator<String> {
 
+    public static final String VALUE_SEPARATOR = ",";
+
     private final String[] values;
     private final int[] times;
     private int arrayIndex;
     private int indexInArray;
 
     public DataUnpackingIterator(String dataString, int totalCount) {
-        String[] tokens = dataString.split(TimeTest.VALUE_SEPARATOR);
+        String[] tokens = dataString.split(VALUE_SEPARATOR);
         int size = tokens.length / 2 + 1;
 
         values = new String[size];
