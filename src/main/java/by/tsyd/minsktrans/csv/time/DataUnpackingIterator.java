@@ -6,7 +6,7 @@ import com.google.common.collect.AbstractIterator;
 * @author Dmitry Tsydzik
 * @since Date: 24.02.14.
 */
-class DataUnpackingIterator extends AbstractIterator<String> {
+public class DataUnpackingIterator extends AbstractIterator<String> {
 
     public static final String VALUE_SEPARATOR = ",";
 
