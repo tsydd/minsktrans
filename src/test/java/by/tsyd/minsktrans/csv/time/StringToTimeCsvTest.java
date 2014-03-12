@@ -49,7 +49,7 @@ public class StringToTimeCsvTest {
         TimeCsv timeCsv = converter.apply(line);
         assertEquals(timeCsv.getRouteId().toString(), validDataTokens[0]);
 
-        List<Integer> validTimetable = intList(validDataTokens[2]);
+        List<Long> validTimetable = longList(validDataTokens[2]);
         assertEquals(timeCsv.getTimeTable(), validTimetable, line);
 
         char[] chars = validDataTokens[3].toCharArray();
@@ -60,17 +60,17 @@ public class StringToTimeCsvTest {
             }
         }
         assertEquals(timeCsv.getZeroGrounds(), validZeroGroundIndexes);
-        assertEquals(timeCsv.getValidFrom(), intList(validDataTokens[4]));
-        assertEquals(timeCsv.getValidTo(), intList(validDataTokens[5]));
+        assertEquals(timeCsv.getValidFrom(), longList(validDataTokens[4]));
+        assertEquals(timeCsv.getValidTo(), longList(validDataTokens[5]));
         assertEquals(timeCsv.getWorkDays(), Arrays.stream(validDataTokens[1].split(", "))
                 .sequential()
                 .collect(toList()));
     }
 
-    private List<Integer> intList(String string) {
+    private List<Long> longList(String string) {
         return Arrays.stream(string.split(", "))
                 .sequential()
-                .map(Integer::valueOf)
+                .map(Long::valueOf)
                 .collect(toList());
     }
 }

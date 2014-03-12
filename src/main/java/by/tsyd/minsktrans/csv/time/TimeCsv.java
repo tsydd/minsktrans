@@ -10,9 +10,9 @@ import java.util.Set;
 public class TimeCsv {
 
     private Long routeId;
-    private List<Integer> timeTable;
-    private List<Integer> validFrom;
-    private List<Integer> validTo;
+    private List<Long> timeTable;
+    private List<Long> validFrom;
+    private List<Long> validTo;
     private List<String> workDays;
     private Set<Integer> zeroGrounds;
 
@@ -24,27 +24,27 @@ public class TimeCsv {
         this.routeId = routeId;
     }
 
-    public List<Integer> getTimeTable() {
+    public List<Long> getTimeTable() {
         return timeTable;
     }
 
-    public void setTimeTable(List<Integer> timeTable) {
+    public void setTimeTable(List<Long> timeTable) {
         this.timeTable = timeTable;
     }
 
-    public List<Integer> getValidFrom() {
+    public List<Long> getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(List<Integer> validFrom) {
+    public void setValidFrom(List<Long> validFrom) {
         this.validFrom = validFrom;
     }
 
-    public List<Integer> getValidTo() {
+    public List<Long> getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(List<Integer> validTo) {
+    public void setValidTo(List<Long> validTo) {
         this.validTo = validTo;
     }
 

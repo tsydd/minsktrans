@@ -19,8 +19,8 @@ import static java.util.stream.Collectors.toList;
 public class TimeCsvToRouteTimeConfig implements Function<TimeCsv, RouteTimeConfig> {
 
     private final Function<String, List<DayOfWeek>> stringToDaysOfWeek = new StringToDaysOfWeek();
-    private final Function<Integer, LocalTime> intToLocalTime = new IntToLocalTime();
-    private final Function<Integer, LocalDate> intToLocalDate = new IntToLocalDate();
+    private final Function<Long, LocalTime> minutesToLocalTime = new MinutesToLocalTime();
+    private final Function<Long, LocalDate> daysToLocalDate = new DaysToLocalDate();
     private final Function<Long, Route> routeByIdIndex;
 
     public TimeCsvToRouteTimeConfig(Function<Long, Route> routeByIdIndex) {
@@ -40,15 +40,15 @@ public class TimeCsvToRouteTimeConfig implements Function<TimeCsv, RouteTimeConf
 
             cfg.setWorkDays(stringToDaysOfWeek.apply(timeCsv.getWorkDays().get(j)));
             cfg.setGround(timeCsv.getZeroGrounds().contains(j));
-            cfg.setValidFrom(intToLocalDate.apply(timeCsv.getValidFrom().get(j)));
-            cfg.setValidTo(intToLocalDate.apply(timeCsv.getValidTo().get(j)));
+            cfg.setValidFrom(daysToLocalDate.apply(timeCsv.getValidFrom().get(j)));
+            cfg.setValidTo(daysToLocalDate.apply(timeCsv.getValidTo().get(j)));
 
             timeConfigs.add(cfg);
         }
         routeTimeConfig.setTimeConfigs(timeConfigs);
 
         routeTimeConfig.setTimes(timeCsv.getTimeTable().stream()
-                .map(intToLocalTime)
+                .map(minutesToLocalTime)
                 .collect(toList()));
 
         return routeTimeConfig;

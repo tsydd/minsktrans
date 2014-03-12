@@ -51,9 +51,9 @@ public class StringToTimeCsv implements Function<String, TimeCsv> {
         return timeCsv;
     }
 
-    private List<Integer> getValidDates(String block, int maxIndex) {
+    private List<Long> getValidDates(String block, int maxIndex) {
         return StreamUtils.asStream(new DataUnpackingIterator(block, maxIndex), maxIndex)
-                .map(Integer::valueOf)
+                .map(Long::valueOf)
                 .collect(toList());
     }
 
@@ -69,11 +69,11 @@ public class StringToTimeCsv implements Function<String, TimeCsv> {
         return zeroGroundsIndexes;
     }
 
-    private List<Integer> getTimeTable(String[] timesData, String intervals) {
+    private List<Long> getTimeTable(String[] timesData, String intervals) {
         int timesDataLength = timesData.length;
 
-        List<Integer> timetable = new ArrayList<>();
-        int previousTime = 0;
+        List<Long> timetable = new ArrayList<>();
+        long previousTime = 0;
         for (String token : timesData) {
             previousTime += Integer.valueOf(token);
             timetable.add(previousTime);
