@@ -1,7 +1,7 @@
 package by.tsyd.minsktrans.domain;
 
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Dmitry Tsydzik
@@ -14,7 +14,7 @@ public class Route {
     private String operator;
     private String routeType;
     private String routeName;
-    private Collection<Stop> stops = Collections.emptyList();
+    private List<Stop> stops = Collections.emptyList();
 
     @Override
     public String toString() {
@@ -74,11 +74,11 @@ public class Route {
         this.routeName = routeName;
     }
 
-    public Collection<Stop> getStops() {
+    public List<Stop> getStops() {
         return stops;
     }
 
-    public void setStops(Collection<Stop> stops) {
+    public void setStops(List<Stop> stops) {
         this.stops = stops;
     }
 }

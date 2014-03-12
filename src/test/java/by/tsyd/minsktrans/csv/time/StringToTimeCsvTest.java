@@ -6,10 +6,11 @@ import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
@@ -46,13 +47,13 @@ public class StringToTimeCsvTest {
         String[] validDataTokens = validDataLine.split(";", -1);
 
         TimeCsv timeCsv = converter.apply(line);
-        assertEquals(timeCsv.getRouteId(), validDataTokens[0]);
+        assertEquals(timeCsv.getRouteId().toString(), validDataTokens[0]);
 
         List<Integer> validTimetable = intList(validDataTokens[2]);
         assertEquals(timeCsv.getTimeTable(), validTimetable, line);
 
         char[] chars = validDataTokens[3].toCharArray();
-        List<Integer> validZeroGroundIndexes = new ArrayList<>();
+        Set<Integer> validZeroGroundIndexes = new HashSet<>();
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == '1') {
                 validZeroGroundIndexes.add(i);

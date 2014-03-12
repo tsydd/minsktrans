@@ -32,34 +32,35 @@ public class GenericCsvDataSupplierTest {
         assertEquals("", dto.getEmpty());
         assertEquals("val", dto.getNonEmpty());
     }
+
+    static class Dto {
+        private String id;
+        private String empty;
+        private String nonEmpty;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getEmpty() {
+            return empty;
+        }
+
+        public void setEmpty(String empty) {
+            this.empty = empty;
+        }
+
+        public String getNonEmpty() {
+            return nonEmpty;
+        }
+
+        public void setNonEmpty(String nonEmpty) {
+            this.nonEmpty = nonEmpty;
+        }
+    }
 }
 
-class Dto {
-    private String id;
-    private String empty;
-    private String nonEmpty;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getEmpty() {
-        return empty;
-    }
-
-    public void setEmpty(String empty) {
-        this.empty = empty;
-    }
-
-    public String getNonEmpty() {
-        return nonEmpty;
-    }
-
-    public void setNonEmpty(String nonEmpty) {
-        this.nonEmpty = nonEmpty;
-    }
-}

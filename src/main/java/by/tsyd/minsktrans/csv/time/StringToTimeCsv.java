@@ -3,7 +3,9 @@ package by.tsyd.minsktrans.csv.time;
 import by.tsyd.minsktrans.util.StreamUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
@@ -24,7 +26,8 @@ public class StringToTimeCsv implements Function<String, TimeCsv> {
         // splitting route id and other data
         int firstCommaIndex = line.indexOf(',');
 
-        timeCsv.setRouteId(line.substring(0, firstCommaIndex));
+        String routeIdString = line.substring(0, firstCommaIndex);
+        timeCsv.setRouteId(Long.valueOf(routeIdString));
 
         String dataString = line.substring(firstCommaIndex + 1);
         // splitting data to 5 blocks:
@@ -54,8 +57,8 @@ public class StringToTimeCsv implements Function<String, TimeCsv> {
                 .collect(toList());
     }
 
-    private List<Integer> getZeroGroundsIndexes(String[] timesData) {
-        List<Integer> zeroGroundsIndexes = new ArrayList<>();
+    private Set<Integer> getZeroGroundsIndexes(String[] timesData) {
+        Set<Integer> zeroGroundsIndexes = new HashSet<>();
         for (int i = 0; i < timesData.length; i++) {
             String time = timesData[i];
             char tag = time.charAt(0);

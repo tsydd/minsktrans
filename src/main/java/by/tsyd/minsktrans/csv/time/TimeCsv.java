@@ -1,6 +1,7 @@
 package by.tsyd.minsktrans.csv.time;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Dmitry Tsydzik
@@ -8,18 +9,18 @@ import java.util.List;
  */
 public class TimeCsv {
 
-    private String routeId;
+    private Long routeId;
     private List<Integer> timeTable;
     private List<Integer> validFrom;
     private List<Integer> validTo;
     private List<String> workDays;
-    private List<Integer> zeroGrounds;
+    private Set<Integer> zeroGrounds;
 
-    public String getRouteId() {
+    public Long getRouteId() {
         return routeId;
     }
 
-    public void setRouteId(String routeId) {
+    public void setRouteId(Long routeId) {
         this.routeId = routeId;
     }
 
@@ -55,11 +56,11 @@ public class TimeCsv {
         this.workDays = workDays;
     }
 
-    public List<Integer> getZeroGrounds() {
+    public Set<Integer> getZeroGrounds() {
         return zeroGrounds;
     }
 
-    public void setZeroGrounds(List<Integer> zeroGrounds) {
+    public void setZeroGrounds(Set<Integer> zeroGrounds) {
         this.zeroGrounds = zeroGrounds;
     }
 }
