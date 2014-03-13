@@ -2,6 +2,7 @@ package by.tsyd.minsktrans.service.time;
 
 import by.tsyd.minsktrans.csv.time.TimeCsv;
 import by.tsyd.minsktrans.domain.Route;
+import by.tsyd.minsktrans.domain.RouteTimeConfig;
 
 import java.util.List;
 import java.util.function.Function;

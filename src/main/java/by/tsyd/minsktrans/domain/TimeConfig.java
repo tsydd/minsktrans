@@ -1,4 +1,4 @@
-package by.tsyd.minsktrans.service.time;
+package by.tsyd.minsktrans.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

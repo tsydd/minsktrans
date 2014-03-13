@@ -1,6 +1,4 @@
-package by.tsyd.minsktrans.service.time;
-
-import by.tsyd.minsktrans.domain.Route;
+package by.tsyd.minsktrans.domain;
 
 import java.time.LocalTime;
 import java.util.List;
