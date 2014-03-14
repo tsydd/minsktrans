@@ -17,6 +17,7 @@ import by.tsyd.minsktrans.service.route.index.RoutesByTransportAndRouteNumberInd
 import by.tsyd.minsktrans.service.route.index.RoutesByTransportIndex;
 import by.tsyd.minsktrans.service.stop.CsvBasedStopListSupplier;
 import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
+import by.tsyd.minsktrans.service.stop.index.StopInRouteIndex;
 import by.tsyd.minsktrans.service.time.CsvBasedRouteTimeConfigListSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -100,6 +101,10 @@ public class IntegrationTestConfig {
     @Bean
     public Function<TransportType, List<Route>> routesByTransportIndex() {
         return new RoutesByTransportIndex(routeListSupplier());
+    }
+
+    @Bean BiFunction<Long, Long, Integer> stopInRouteIndex() {
+        return new StopInRouteIndex(routeListSupplier());
     }
 
     // Time
