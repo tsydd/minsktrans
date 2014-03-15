@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 
 import java.util.Iterator;
 import java.util.Spliterators;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.joining;

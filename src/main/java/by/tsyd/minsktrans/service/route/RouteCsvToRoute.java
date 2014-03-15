@@ -2,6 +2,7 @@ package by.tsyd.minsktrans.service.route;
 
 import by.tsyd.minsktrans.csv.route.RouteCsv;
 import by.tsyd.minsktrans.domain.Route;
+import by.tsyd.minsktrans.domain.RouteTimeConfig;
 import by.tsyd.minsktrans.domain.Stop;
 import by.tsyd.minsktrans.domain.TransportType;
 
@@ -19,10 +20,12 @@ public class RouteCsvToRoute implements Function<RouteCsv, Route> {
     private String routeNumber;
     private TransportType transport;
     private String operator;
-    private Function<Long, Stop> stopByIdIndex;
+    private final Function<Long, Stop> stopByIdIndex;
+    private final Function<Long, RouteTimeConfig> routeConfigByIdIndex;
 
-    public RouteCsvToRoute(Function<Long, Stop> stopByIdIndex) {
+    public RouteCsvToRoute(Function<Long, Stop> stopByIdIndex, Function<Long, RouteTimeConfig> routeConfigByIdIndex) {
         this.stopByIdIndex = stopByIdIndex;
+        this.routeConfigByIdIndex = routeConfigByIdIndex;
     }
 
     private TransportType getTransportType(String transportType) {
@@ -53,7 +56,9 @@ public class RouteCsvToRoute implements Function<RouteCsv, Route> {
         }
 
         Route route = new Route();
-        route.setId(Long.valueOf(routeCsv.getRouteId()));
+        Long routeId = Long.valueOf(routeCsv.getRouteId());
+        route.setId(routeId);
+        route.setConfig(routeConfigByIdIndex.apply(routeId));
         route.setRouteNumber(routeNumber);
         route.setOperator(operator);
         route.setTransport(transport);

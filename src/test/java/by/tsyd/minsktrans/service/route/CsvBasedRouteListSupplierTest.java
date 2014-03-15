@@ -34,8 +34,8 @@ public class CsvBasedRouteListSupplierTest {
 
         Supplier<List<Route>> routeListSupplier = new CsvBasedRouteListSupplier(
                 () -> Arrays.asList(routeCsv),
-                (stopId) -> stop
-        );
+                (stopId) -> stop,
+                (routeId) -> null);
         List<Route> routes = routeListSupplier.get();
         Route route = routes.get(0);
 
@@ -66,8 +66,8 @@ public class CsvBasedRouteListSupplierTest {
 
         Supplier<List<Route>> routeListSupplier = new CsvBasedRouteListSupplier(
                 () -> Arrays.asList(routeCsv1, routeCsv2),
-                (stopId) -> null
-        );
+                (stopId) -> null,
+                (routeId) -> null);
         List<Route> routes2 = routeListSupplier.get();
         Route route = routes2.get(1);
 

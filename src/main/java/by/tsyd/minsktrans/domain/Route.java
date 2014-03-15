@@ -15,6 +15,7 @@ public class Route {
     private String routeType;
     private String routeName;
     private List<Stop> stops = Collections.emptyList();
+    private RouteTimeConfig config;
 
     @Override
     public String toString() {
@@ -80,5 +81,13 @@ public class Route {
 
     public void setStops(List<Stop> stops) {
         this.stops = stops;
+    }
+
+    public RouteTimeConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(RouteTimeConfig config) {
+        this.config = config;
     }
 }

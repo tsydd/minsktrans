@@ -1,9 +1,9 @@
 package by.tsyd.minsktrans;
 
-import by.tsyd.minsktrans.csv.route.RouteCsvListSupplier;
 import by.tsyd.minsktrans.csv.route.RouteCsv;
-import by.tsyd.minsktrans.csv.stop.StopCsvListSupplier;
+import by.tsyd.minsktrans.csv.route.RouteCsvListSupplier;
 import by.tsyd.minsktrans.csv.stop.StopCsv;
+import by.tsyd.minsktrans.csv.stop.StopCsvListSupplier;
 import by.tsyd.minsktrans.service.route.CsvBasedRouteListSupplier;
 import by.tsyd.minsktrans.service.stop.CsvBasedStopListSupplier;
 import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
@@ -41,7 +41,7 @@ public class StaticProvider {
     @DataProvider(name = FILE_ROUTE_LIST_SUPPLIER)
     public static Object[][] fileBasedRouteListSupplier() {
         StopByIdIndex stopByIdIndex = new StopByIdIndex(new CsvBasedStopListSupplier(getStopCsvListFromFileSupplier()));
-        return new Object[][]{{new CsvBasedRouteListSupplier(getRouteCsvListSupplier(), stopByIdIndex)}};
+        return new Object[][]{{new CsvBasedRouteListSupplier(getRouteCsvListSupplier(), stopByIdIndex, (routeId) -> null)}};
     }
 
     private static Supplier<List<RouteCsv>> getRouteCsvListSupplier() {

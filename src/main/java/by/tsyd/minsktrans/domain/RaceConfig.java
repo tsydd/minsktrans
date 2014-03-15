@@ -8,7 +8,7 @@ import java.util.Collection;
  * @author Dmitry Tsydzik
  * @since Date: 12.03.14.
  */
-public class TimeConfig {
+public class RaceConfig {
     private Collection<DayOfWeek> workDays;
     private boolean ground;
     private LocalDate validFrom;

@@ -1,9 +1,9 @@
 package by.tsyd.minsktrans.service.time;
 
 import by.tsyd.minsktrans.csv.time.TimeCsv;
-import by.tsyd.minsktrans.domain.Route;
+import by.tsyd.minsktrans.domain.RaceConfig;
+import by.tsyd.minsktrans.domain.RouteConfigWithRouteId;
 import by.tsyd.minsktrans.domain.RouteTimeConfig;
-import by.tsyd.minsktrans.domain.TimeConfig;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,41 +18,42 @@ import static java.util.stream.Collectors.toList;
  * @author Dmitry Tsydzik
  * @since Date: 12.03.14.
  */
-public class TimeCsvToRouteTimeConfig implements Function<TimeCsv, RouteTimeConfig> {
+public class TimeCsvToRouteTimeConfig implements Function<TimeCsv, RouteConfigWithRouteId> {
 
     private final Function<String, List<DayOfWeek>> stringToDaysOfWeek = new StringToDaysOfWeek();
     private final Function<Long, LocalTime> minutesToLocalTime = new MinutesToLocalTime();
     private final Function<Long, LocalDate> daysToLocalDate = new DaysToLocalDate();
-    private final Function<Long, Route> routeByIdIndex;
 
-    public TimeCsvToRouteTimeConfig(Function<Long, Route> routeByIdIndex) {
-        this.routeByIdIndex = routeByIdIndex;
+    public TimeCsvToRouteTimeConfig() {
     }
 
     @Override
-    public RouteTimeConfig apply(TimeCsv timeCsv) {
+    public RouteConfigWithRouteId apply(TimeCsv timeCsv) {
+        RouteConfigWithRouteId routeConfigWithRouteId = new RouteConfigWithRouteId();
+        routeConfigWithRouteId.setRouteId(timeCsv.getRouteId());
+
         RouteTimeConfig routeTimeConfig = new RouteTimeConfig();
-        routeTimeConfig.setRoute(routeByIdIndex.apply(timeCsv.getRouteId()));
+        routeConfigWithRouteId.setConfig(routeTimeConfig);
 
         int w = timeCsv.getWorkDays().size();
 
-        List<TimeConfig> timeConfigs = new ArrayList<>();
+        List<RaceConfig> raceConfigs = new ArrayList<>();
         for (int j = 0; j < w; j++) {
-            TimeConfig cfg = new TimeConfig();
+            RaceConfig raceConfig = new RaceConfig();
 
-            cfg.setWorkDays(stringToDaysOfWeek.apply(timeCsv.getWorkDays().get(j)));
-            cfg.setGround(timeCsv.getZeroGrounds().contains(j));
-            cfg.setValidFrom(daysToLocalDate.apply(timeCsv.getValidFrom().get(j)));
-            cfg.setValidTo(daysToLocalDate.apply(timeCsv.getValidTo().get(j)));
+            raceConfig.setWorkDays(stringToDaysOfWeek.apply(timeCsv.getWorkDays().get(j)));
+            raceConfig.setGround(timeCsv.getZeroGrounds().contains(j));
+            raceConfig.setValidFrom(daysToLocalDate.apply(timeCsv.getValidFrom().get(j)));
+            raceConfig.setValidTo(daysToLocalDate.apply(timeCsv.getValidTo().get(j)));
 
-            timeConfigs.add(cfg);
+            raceConfigs.add(raceConfig);
         }
-        routeTimeConfig.setTimeConfigs(timeConfigs);
+        routeTimeConfig.setRaceConfigs(raceConfigs);
 
         routeTimeConfig.setTimes(timeCsv.getTimeTable().stream()
                 .map(minutesToLocalTime)
                 .collect(toList()));
 
-        return routeTimeConfig;
+        return routeConfigWithRouteId;
     }
 }

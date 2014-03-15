@@ -8,17 +8,8 @@ import java.util.List;
  * @since Date: 12.03.14.
  */
 public class RouteTimeConfig {
-    private Route route;
     private List<LocalTime> times;
-    private List<TimeConfig> timeConfigs;
-
-    public Route getRoute() {
-        return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
+    private List<RaceConfig> raceConfigs;
 
     public List<LocalTime> getTimes() {
         return times;
@@ -28,11 +19,11 @@ public class RouteTimeConfig {
         this.times = times;
     }
 
-    public List<TimeConfig> getTimeConfigs() {
-        return timeConfigs;
+    public List<RaceConfig> getRaceConfigs() {
+        return raceConfigs;
     }
 
-    public void setTimeConfigs(List<TimeConfig> timeConfigs) {
-        this.timeConfigs = timeConfigs;
+    public void setRaceConfigs(List<RaceConfig> raceConfigs) {
+        this.raceConfigs = raceConfigs;
     }
 }

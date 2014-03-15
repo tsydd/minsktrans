@@ -6,10 +6,7 @@ import by.tsyd.minsktrans.csv.stop.StopCsv;
 import by.tsyd.minsktrans.csv.stop.StopCsvListSupplier;
 import by.tsyd.minsktrans.csv.time.TimeCsv;
 import by.tsyd.minsktrans.csv.time.TimeCsvListSupplier;
-import by.tsyd.minsktrans.domain.Route;
-import by.tsyd.minsktrans.domain.RouteTimeConfig;
-import by.tsyd.minsktrans.domain.Stop;
-import by.tsyd.minsktrans.domain.TransportType;
+import by.tsyd.minsktrans.domain.*;
 import by.tsyd.minsktrans.service.route.CsvBasedRouteListSupplier;
 import by.tsyd.minsktrans.service.route.index.RouteByIdIndex;
 import by.tsyd.minsktrans.service.route.index.RoutesByStopIdIndex;
@@ -29,6 +26,8 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author Dmitry Tsydzik
@@ -76,11 +75,25 @@ public class IntegrationTestConfig {
         return new StopByIdIndex(stopListSupplier());
     }
 
+    // Time
+
+    @Bean
+    public Supplier<List<RouteConfigWithRouteId>> routeTimeConfigWithRouteIdListSupplier() {
+        return new CsvBasedRouteTimeConfigListSupplier(timeCsvListSupplier());
+    }
+
+    @Bean
+    public Function<Long, RouteTimeConfig> routeConfigByRouteId() {
+        return routeTimeConfigWithRouteIdListSupplier().get().parallelStream()
+                .collect(toMap(RouteConfigWithRouteId::getRouteId, RouteConfigWithRouteId::getConfig))
+                ::get;
+    }
+
     // Routes
 
     @Bean
     public Supplier<List<Route>> routeListSupplier() {
-        return new CsvBasedRouteListSupplier(routeCsvListSupplier(), stopByIdIndex());
+        return new CsvBasedRouteListSupplier(routeCsvListSupplier(), stopByIdIndex(), routeConfigByRouteId());
     }
 
     @Bean
@@ -106,12 +119,4 @@ public class IntegrationTestConfig {
     @Bean BiFunction<Long, Long, Integer> stopInRouteIndex() {
         return new StopInRouteIndex(routeListSupplier());
     }
-
-    // Time
-
-    @Bean
-    public Supplier<List<RouteTimeConfig>> routeTimeConfigListSupplier() {
-        return new CsvBasedRouteTimeConfigListSupplier(timeCsvListSupplier(), routeByIdIndex());
-    }
-
 }
