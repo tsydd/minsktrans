@@ -3,12 +3,7 @@ package by.tsyd.minsktrans.csv.time;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Iterator;
-import java.util.Spliterators;
-import java.util.stream.StreamSupport;
-
-import static java.util.stream.Collectors.joining;
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -31,8 +26,7 @@ public class DataUnpackingIteratorTest {
 
     @Test(dataProvider = "data")
     public void test(String data, int count, String result) throws Exception {
-        Iterator<String> iterator = new DataUnpackingIterator(data, count);
-        assertEquals(result, StreamSupport.stream(Spliterators.spliterator(iterator, count, 0), false)
-                        .collect(joining()));
+        String[] resultArray = result.split("(?<=[^^])");
+        assertThat(new DataUnpackingIterator(data, count)).containsExactly(resultArray);
     }
 }

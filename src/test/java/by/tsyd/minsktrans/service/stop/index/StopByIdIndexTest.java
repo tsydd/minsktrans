@@ -6,8 +6,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -20,7 +19,7 @@ public class StopByIdIndexTest {
         stop.setId(1L);
 
         Function<Long, Stop> index = new StopByIdIndex(() -> Arrays.asList(stop));
-        assertNull(index.apply(0L));
-        assertSame(stop, index.apply(stop.getId()));
+        assertThat(index.apply(0L)).isNull();
+        assertThat(index.apply(stop.getId())).isSameAs(stop);
     }
 }

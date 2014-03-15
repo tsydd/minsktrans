@@ -8,8 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -39,11 +38,11 @@ public class RoutesByTransportAndRouteNumberIndexTest {
                 () -> Arrays.asList(route1, route2, route12, route21)
         );
 
-        assertEquals(Arrays.asList(route1), index.apply(route1.getTransport(), route1.getRouteNumber()));
-        assertEquals(Arrays.asList(route2), index.apply(route2.getTransport(), route2.getRouteNumber()));
-        assertEquals(Arrays.asList(route12), index.apply(route1.getTransport(), route2.getRouteNumber()));
-        assertEquals(Arrays.asList(route21), index.apply(route2.getTransport(), route1.getRouteNumber()));
-        assertNull(index.apply(route1.getTransport(), "yet_another_number"));
-        assertNull(index.apply(TransportType.METRO, route1.getRouteNumber()));
+        assertThat(index.apply(route1.getTransport(), route1.getRouteNumber())).containsExactly(route1);
+        assertThat(index.apply(route2.getTransport(), route2.getRouteNumber())).containsExactly(route2);
+        assertThat(index.apply(route1.getTransport(), route2.getRouteNumber())).containsExactly(route12);
+        assertThat(index.apply(route2.getTransport(), route1.getRouteNumber())).containsExactly(route21);
+        assertThat(index.apply(route1.getTransport(), "yet_another_number")).isNull();
+        assertThat(index.apply(TransportType.METRO, route1.getRouteNumber())).isNull();
     }
 }

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import static org.testng.Assert.assertSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -20,6 +20,6 @@ public class RouteByIdIndexTest {
         route.setId(1L);
         Function<Long, Route> index = new RouteByIdIndex(() -> Arrays.asList(route));
 
-        assertSame(route, index.apply(route.getId()));
+        assertThat(index.apply(route.getId())).isSameAs(route);
     }
 }

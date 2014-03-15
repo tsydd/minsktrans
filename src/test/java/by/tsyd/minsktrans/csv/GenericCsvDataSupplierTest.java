@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -28,9 +28,9 @@ public class GenericCsvDataSupplierTest {
         );
 
         Dto dto = dtoSupplier.get().get(0);
-        assertEquals("1", dto.getId());
-        assertEquals("", dto.getEmpty());
-        assertEquals("val", dto.getNonEmpty());
+        assertThat(dto.getId()).isEqualTo("1");
+        assertThat(dto.getEmpty()).isEqualTo("");
+        assertThat(dto.getNonEmpty()).isEqualTo("val");
     }
 
     static class Dto {

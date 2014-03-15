@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -39,13 +39,13 @@ public class CsvBasedRouteListSupplierTest {
         List<Route> routes = routeListSupplier.get();
         Route route = routes.get(0);
 
-        assertEquals(1L, route.getId().longValue());
-        assertEquals(routeCsv.getRouteNumber(), route.getRouteNumber());
-        assertEquals(TransportType.BUS, route.getTransport());
-        assertEquals(routeCsv.getOperator(), route.getOperator());
-        assertEquals(routeCsv.getRouteName(), route.getRouteName());
-        assertEquals(routeCsv.getRouteType(), route.getRouteType());
-        assertEquals(Arrays.asList(stop), route.getStops());
+        assertThat(route.getId()).isEqualTo(1);
+        assertThat(route.getRouteNumber()).isEqualTo(routeCsv.getRouteNumber());
+        assertThat(route.getTransport()).isEqualTo(TransportType.BUS);
+        assertThat(route.getOperator()).isEqualTo(routeCsv.getOperator());
+        assertThat(route.getRouteName()).isEqualTo(routeCsv.getRouteName());
+        assertThat(route.getRouteType()).isEqualTo(routeCsv.getRouteType());
+        assertThat(route.getStops()).containsExactly(stop);
     }
 
     @Test
@@ -71,8 +71,8 @@ public class CsvBasedRouteListSupplierTest {
         List<Route> routes2 = routeListSupplier.get();
         Route route = routes2.get(1);
 
-        assertEquals(routeCsv1.getRouteNumber(), route.getRouteNumber());
-        assertEquals(TransportType.BUS, route.getTransport());
-        assertEquals(routeCsv1.getOperator(), route.getOperator());
+        assertThat(route.getRouteNumber()).isEqualTo(routeCsv1.getRouteNumber());
+        assertThat(route.getTransport()).isEqualTo(TransportType.BUS);
+        assertThat(route.getOperator()).isEqualTo(routeCsv1.getOperator());
     }
 }

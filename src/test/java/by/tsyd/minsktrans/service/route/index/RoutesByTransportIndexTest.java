@@ -8,8 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -22,7 +21,7 @@ public class RoutesByTransportIndexTest {
         route.setTransport(TransportType.BUS);
 
         Function<TransportType, List<Route>> index = new RoutesByTransportIndex(() -> Arrays.asList(route));
-        assertEquals(Arrays.asList(route), index.apply(TransportType.BUS));
-        assertNull(index.apply(TransportType.METRO));
+        assertThat(index.apply(TransportType.BUS)).containsExactly(route);
+        assertThat(index.apply(TransportType.METRO)).isNull();
     }
 }

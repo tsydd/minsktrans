@@ -4,8 +4,6 @@ import by.tsyd.minsktrans.domain.Route;
 import by.tsyd.minsktrans.domain.RouteTimeConfig;
 import by.tsyd.minsktrans.domain.TransportType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -15,13 +13,7 @@ import java.util.function.BiFunction;
  * @author Dmitry Tsydzik
  * @since Date: 13.03.14.
  */
-@ContextConfiguration(classes = {
-        LocalResourcesSupplierConfig.class,
-//        RemoteResourceSupplierConfig.class,
-        IntegrationTestConfig.class
-})
-@Test(groups = "integration")
-public class StopScheduleIntegrationTest extends AbstractTestNGSpringContextTests {
+public class StopScheduleIntegrationTest extends AbstractLocalResourcesIntegrationTest {
 
     @Autowired
     private BiFunction<TransportType, String, List<Route>> routesByTransportAndRouteNumberIndex;

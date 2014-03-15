@@ -2,17 +2,15 @@ package by.tsyd.minsktrans.service.stop;
 
 import by.tsyd.minsktrans.csv.stop.StopCsv;
 import by.tsyd.minsktrans.domain.Stop;
-import com.google.common.collect.Sets;
 import org.testng.annotations.Test;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toSet;
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -32,10 +30,10 @@ public class CsvBasedStopListSupplierTest {
         Supplier<List<Stop>> stopListSupplier = new CsvBasedStopListSupplier(() -> Arrays.asList(stopCsv));
         Stop stop = stopListSupplier.get().get(0);
 
-        assertEquals(1, stop.getId().longValue());
-        assertEquals(stopCsv.getName(), stop.getName());
-        assertEquals(0, new BigDecimal("12.34567").compareTo(stop.getLatitude()));
-        assertEquals(0, new BigDecimal("76.54321").compareTo(stop.getLongitude()));
+        assertThat(stop.getId()).isEqualTo(1);
+        assertThat(stop.getName()).isEqualTo(stopCsv.getName());
+        assertThat(stop.getLatitude()).isEqualTo("12.34567");
+        assertThat(stop.getLongitude()).isEqualTo("76.54321");
     }
 
     @Test
@@ -56,7 +54,7 @@ public class CsvBasedStopListSupplierTest {
         Supplier<List<Stop>> stopListSupplier = new CsvBasedStopListSupplier(() -> Arrays.asList(stopCsv1, stopCsv2));
         Stop stop2 = stopListSupplier.get().get(1);
 
-        assertEquals(stopCsv1.getName(), stop2.getName());
+        assertThat(stop2.getName()).isEqualTo(stopCsv1.getName());
     }
 
     @Test
@@ -85,6 +83,6 @@ public class CsvBasedStopListSupplierTest {
         Set<Long> stopIds = stop3.getStops().stream()
                 .map(Stop::getId)
                 .collect(toSet());
-        assertEquals(Sets.newHashSet(1L, 2L, 3L), stopIds);
+        assertThat(stopIds).containsExactly(1L, 2L, 3L);
     }
 }

@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -26,6 +26,6 @@ public class DaysToLocalDateTest {
 
     @Test(dataProvider = "data")
     public void test(Long days, LocalDate expected) throws Exception {
-        assertEquals(daysToLocalDate.apply(days), expected);
+        assertThat(expected).isEqualTo(daysToLocalDate.apply(days));
     }
 }

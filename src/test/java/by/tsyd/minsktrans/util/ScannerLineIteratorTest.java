@@ -4,11 +4,9 @@ import org.testng.annotations.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.Scanner;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -20,11 +18,7 @@ public class ScannerLineIteratorTest {
     public void test() throws Exception {
         try (InputStream inputStream = new ByteArrayInputStream("line1\nline2\nline3".getBytes());
              Scanner scanner = new Scanner(inputStream)) {
-            Iterator<String> iterator = new ScannerLineIterator(scanner);
-            assertEquals("line1", iterator.next());
-            assertEquals("line2", iterator.next());
-            assertEquals("line3", iterator.next());
-            assertFalse(iterator.hasNext());
+            assertThat(new ScannerLineIterator(scanner)).containsExactly("line1", "line2", "line3");
         }
     }
 }

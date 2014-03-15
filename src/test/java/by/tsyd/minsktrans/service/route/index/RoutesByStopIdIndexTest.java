@@ -8,8 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -25,7 +24,7 @@ public class RoutesByStopIdIndexTest {
         route.setStops(Arrays.asList(stop));
 
         Function<Long, List<Route>> index = new RoutesByStopIdIndex(() -> Arrays.asList(route));
-        assertNull(index.apply(0L));
-        assertEquals(Arrays.asList(route), index.apply(stop.getId()));
+        assertThat(index.apply(0L)).isNull();
+        assertThat(index.apply(stop.getId())).containsExactly(route);
     }
 }

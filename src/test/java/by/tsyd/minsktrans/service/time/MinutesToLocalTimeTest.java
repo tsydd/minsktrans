@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import java.time.LocalTime;
 
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -27,6 +27,6 @@ public class MinutesToLocalTimeTest {
 
     @Test(dataProvider = "data")
     public void test(Long input, LocalTime expected) throws Exception {
-        assertEquals(minutesToLocalTime.apply(input), expected);
+        assertThat(expected).isEqualTo(minutesToLocalTime.apply(input));
     }
 }

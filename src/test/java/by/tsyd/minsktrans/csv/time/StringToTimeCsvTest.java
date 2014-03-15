@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -47,10 +47,10 @@ public class StringToTimeCsvTest {
         String[] validDataTokens = validDataLine.split(";", -1);
 
         TimeCsv timeCsv = converter.apply(line);
-        assertEquals(timeCsv.getRouteId().toString(), validDataTokens[0]);
+        assertThat(timeCsv.getRouteId()).isEqualTo(Long.valueOf(validDataTokens[0]));
 
         List<Long> validTimetable = longList(validDataTokens[2]);
-        assertEquals(timeCsv.getTimeTable(), validTimetable, line);
+        assertThat(timeCsv.getTimeTable()).isEqualTo(validTimetable);
 
         char[] chars = validDataTokens[3].toCharArray();
         Set<Integer> validZeroGroundIndexes = new HashSet<>();
@@ -59,12 +59,10 @@ public class StringToTimeCsvTest {
                 validZeroGroundIndexes.add(i);
             }
         }
-        assertEquals(timeCsv.getZeroGrounds(), validZeroGroundIndexes);
-        assertEquals(timeCsv.getValidFrom(), longList(validDataTokens[4]));
-        assertEquals(timeCsv.getValidTo(), longList(validDataTokens[5]));
-        assertEquals(timeCsv.getWorkDays(), Arrays.stream(validDataTokens[1].split(", "))
-                .sequential()
-                .collect(toList()));
+        assertThat(timeCsv.getZeroGrounds()).isEqualTo(validZeroGroundIndexes);
+        assertThat(timeCsv.getValidFrom()).isEqualTo(longList(validDataTokens[4]));
+        assertThat(timeCsv.getValidTo()).isEqualTo(longList(validDataTokens[5]));
+        assertThat(timeCsv.getWorkDays()).containsExactly(validDataTokens[1].split(", "));
     }
 
     private List<Long> longList(String string) {

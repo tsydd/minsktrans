@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.time.DayOfWeek.*;
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Dmitry Tsydzik
@@ -27,6 +27,6 @@ public class StringToDaysOfWeekTest {
 
     @Test(dataProvider = "data")
     public void test(String input, List<DayOfWeek> expected) throws Exception {
-        assertEquals(stringToDaysOfWeek.apply(input), expected);
+        assertThat(expected).isEqualTo(stringToDaysOfWeek.apply(input));
     }
 }
