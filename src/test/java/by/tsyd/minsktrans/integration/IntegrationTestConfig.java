@@ -16,6 +16,7 @@ import by.tsyd.minsktrans.service.stop.CsvBasedStopListSupplier;
 import by.tsyd.minsktrans.service.stop.index.StopByIdIndex;
 import by.tsyd.minsktrans.service.stop.index.StopInRouteIndex;
 import by.tsyd.minsktrans.service.time.CsvBasedRouteTimeConfigListSupplier;
+import by.tsyd.minsktrans.service.time.TimesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,6 +88,11 @@ public class IntegrationTestConfig {
         return routeTimeConfigWithRouteIdListSupplier().get().parallelStream()
                 .collect(toMap(RouteConfigWithRouteId::getRouteId, RouteConfigWithRouteId::getConfig))
                 ::get;
+    }
+
+    @Bean
+    public TimesService timesService() {
+        return new TimesService(routeByIdIndex(), routesByStopIdIndex());
     }
 
     // Routes

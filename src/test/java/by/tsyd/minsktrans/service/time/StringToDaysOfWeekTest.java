@@ -27,6 +27,6 @@ public class StringToDaysOfWeekTest {
 
     @Test(dataProvider = "data")
     public void test(String input, List<DayOfWeek> expected) throws Exception {
-        assertThat(expected).isEqualTo(stringToDaysOfWeek.apply(input));
+        assertThat(stringToDaysOfWeek.apply(input)).isEqualTo(expected);
     }
 }
